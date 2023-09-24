@@ -11,6 +11,10 @@ Los únicos requisitos son instalar Node y Docker.
 * [Node](https://nodejs.org/es/)
 * [Docker](https://docs.docker.com/get-docker/)
 
+## Environment
+
+Recuerda crear el archivo `env.development.local` a partir del archivo `env.development.local.example`
+
 Vamos a ejecutar la aplicación ya que esta esta configurada para sincronizarse con la base de datos SQLite y lo primero que se hara el arrancar esta sera crear la tabla anomaly.
 
 ```sh
