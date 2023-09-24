@@ -1,0 +1,48 @@
+tags:
+- name: Anomalies
+  description: Anomalies API
+
+paths:
+# [GET] Anomalies
+  /v1/api/anomalies:
+    get:
+      summary: Find All Anomalies
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+# [POST] Validate Anomalies
+  /v1/api/anomalies/validate:
+    post:
+      tags:
+      - anomalies
+      summary: Find Anomalies in Matriz
+      parameters:
+        - in: body
+          name: body
+          description: Matri DNA.
+          schema:
+            $ref: '#/definitions/anomalies'
+      responses:
+        200:
+          description: 'OK'
+        403:
+          description: 'Forbbiden'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  anomalies:
+    type: object
+    required:
+        - dna
+    properties:
+      dna:
+        type: array
+        description: Matriz DNA
+
+schemes:
+ - https
+ - http
