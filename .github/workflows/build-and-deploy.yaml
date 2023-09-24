@@ -1,0 +1,24 @@
+name: Deploy
+
+env:
+  NODE_ENV: development
+  PORT: 3000
+  LOG_DIR: ../../logs
+  LOG_FORMAT: combined
+  ORIGIN: *
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "validator-anomalies"
+          heroku_email: "manwkult@gmail.com"

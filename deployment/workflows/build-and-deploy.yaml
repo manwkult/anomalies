@@ -1,0 +1,53 @@
+name: Node
+
+env:
+  ENV: production
+  IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:${{ github.sha }}
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Build & Push Image
+      uses: docker/build-push-action@v2
+      with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE }}
+
+    - name: Replace Tokens
+      uses: cschleiden/replace-tokens@v1
+      with:
+        files: '["./deployment/*.yaml"]'
+      env:
+        env: ${{ env.ENV }}
+        image: ${{ env.IMAGE }}
+
+    - name: Validate Deployment
+      run: cat ./deployment/deployment.yaml
+
+    - name: Set Up k8s - Digital Ocean
+      uses: matootie/dokube@v1.3.4
+      with:
+        personalAccessToken: ${{ secrets.DIGITALOCEAN_TOKEN }}
+        clusterName: k8s-anomalies
+
+    - name: Deploy
+      run: kubectl apply -f ./deployment/
