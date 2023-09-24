@@ -5,7 +5,7 @@ env:
   PORT: 3000
   LOG_DIR: ../../logs
   LOG_FORMAT: combined
-  ORIGIN: ${{env.ORIGIN}}
+  ORIGIN: '*'
 
 on:
   push:
