@@ -16,3 +16,9 @@ Vamos a ejecutar la aplicación ya que esta esta configurada para sincronizarse 
 ```sh
 npm run dev
 ```
+
+
+## Deploy
+Se configuro el deploy sobre heroku a traves de Github actions
+
+[Anomalies Validator](https://validator-anomalies-0054feeac19e.herokuapp.com/api-docs/)
