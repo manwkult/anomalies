@@ -16,10 +16,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.14
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deploy Heroku
+        uses: gonuit/heroku-docker-deploy@v1.3.3
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "validator-anomalies"
-          heroku_email: "manwkult@gmail.com"
-          branch: master
+          email: "manwkult@gmail.com"
